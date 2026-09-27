@@ -1,0 +1,203 @@
+
+:root {
+  --ink: #211816;
+  --cream: #fff5e8;
+  --orange: #ed6a32;
+  --line: rgba(255, 245, 232, 0.32);
+  --panel: rgba(24, 16, 20, 0.78);
+}
+html,
+body {
+  min-height: 100%;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  color: var(--cream);
+  font-family: "Barlow Condensed", sans-serif;
+  background-color: #211419;
+  background-image: url("ímage/haikyuu.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+body.register-page {
+  align-items: safe center;
+}
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(24, 14, 18, 0.72),
+    rgba(24, 14, 18, 0.3) 55%,
+    rgba(24, 14, 18, 0.58)
+  );
+  content: "";
+}
+a {
+  color: inherit;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 480px);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.form-card {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+  padding: clamp(2rem, 6vw, 3.5rem);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--orange);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.38);
+  box-sizing: border-box;
+  overflow: hidden;
+  animation: rise 0.55s ease both;
+}
+#login {
+  display: block;
+}
+.register-page #register {
+  display: block;
+}
+#register:target {
+  display: block;
+}
+#register:target ~ #login {
+  display: none;
+}
+.form-card form {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+.form-card::before {
+  display: block;
+  margin-bottom: 1.8rem;
+  color: var(--orange);
+  content: "VOLLEY CLUB / 2026";
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+.form-card h2 {
+  margin: 0 0 2rem;
+  font-size: clamp(2.8rem, 8vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.register-page .form-card h2 {
+  font-size: clamp(2rem, 9vw, 3.25rem);
+}
+.input-group {
+  margin-bottom: 1.25rem;
+}
+.input-group label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #f2b08d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.input-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  color: var(--cream);
+  font: inherit;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.input-group input::placeholder {
+  color: rgba(255, 245, 232, 0.5);
+}
+.input-group input:focus {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--orange);
+}
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.95rem 1rem;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  background: var(--orange);
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.btn:hover {
+  background: #ff9a58;
+}
+.btn:active {
+  transform: translateY(2px);
+}
+.toggle-link {
+  margin-top: 1.6rem;
+  color: rgba(255, 245, 232, 0.7);
+  font-size: 0.95rem;
+  text-align: center;
+}
+.toggle-link a {
+  color: var(--orange);
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+.toggle-link a:hover {
+  color: #ffb078;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    background-position: 64% center;
+  }
+  .container {
+    width: 100%;
+    padding: 1rem;
+  }
+  .form-card {
+    padding: 2rem 1.5rem;
+  }
+}

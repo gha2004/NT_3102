@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Haikyuu</title>
+</head>
+<body>
+    <main class="container">
+        <section id="register" class="form-card">
+            <h2>Register</h2>
+            <form>
+                <div class="input-group">
+                    <label for="reg-user">Username</label>
+                    <input type="text" id="reg-user" placeholder="Enter your username" required>
+                </div>
+                <div class="input-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label for="reg-pass">Password</label>
+                    <input type="password" id="reg-pass" placeholder="Create a password" required>
+                </div>
+                <div class="input-group">
+                    <label for="reg-confirm">Confirm Password</label>
+                    <input type="password" id="reg-confirm" placeholder="Confirm your password" required>
+                </div>
+                <a class="btn" href="register.html">Register</a>
+            </form>
+            <div class="toggle-link">Already have an account? <a href="#">Login here</a></div>
+        </section>
+
+        <section id="login" class="form-card">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="login-user">Username</label>
+                    <input type="text" id="login-user" placeholder="Enter your username" autocomplete="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-pass">Password</label>
+                    <input type="password" id="login-pass" placeholder="Enter your password" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p id="login-message" class="form-message" role="status" aria-live="polite" hidden></p>
+            </form>
+            <div class="toggle-link">Don't have an account? <a href="register.html">Register here</a></div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.22.1/jquery.validate.min.js"></script>
+    <script>
+    $(function () {
+        const demoAccount = {
+            username: "Gha_123",
+            password: "gha12345678"
+        };
+
+        function getRegisteredAccounts() {
+            try {
+                const accounts = JSON.parse(localStorage.getItem("volleyClubAccounts") || "[]");
+                return Array.isArray(accounts) ? accounts : [];
+            } catch {
+                return [];
+            }
+        }
+
+        $("#login-form").validate({
+            errorClass: "form-validation-error",
+
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 15
+                },
+                password: {
+                    required: true,
+                    minlength: 8,
+                    maxlength: 15
+                }
+            },
+
+            messages: {
+                username: {
+                    required: "Please enter your username.",
+                    minlength: "Use at least 4 characters.",
+                    maxlength: "Use no more than 15 characters."
+                },
+                password: {
+                    required: "Please enter your password.",
+                    minlength: "Use at least 8 characters.",
+                    maxlength: "Use no more than 15 characters."
+                }
+            },
+
+            submitHandler: function (form) {
+                const username = $("#login-user").val().trim();
+                const password = $("#login-pass").val();
+
+                const validDemoLogin =
+                    username === demoAccount.username &&
+                    password === demoAccount.password;
+
+                const validRegisteredLogin = getRegisteredAccounts().some(
+                    (account) =>
+                        typeof account.username === "string" &&
+                        account.username.toLowerCase() === username.toLowerCase() &&
+                        account.password === password
+                );
+
+                const isValid = validDemoLogin || validRegisteredLogin;
+
+                if (isValid) {
+                    window.location.href = "../assignment2/index.html";
+                         return false;
+                }
+
+                $("#login-message")
+                    .removeClass("form-message-success form-message-error")
+                    .addClass("form-message-error")
+                    .text("Incorrect username or password.")
+                    .prop("hidden", false);
+
+                return false;
+            }
+            });
+        });
+    </script>
+</body>
+</html>

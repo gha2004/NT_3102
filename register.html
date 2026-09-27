@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Register | Haikyuu</title>
+</head>
+<body class="register-page">
+	<main class="container">
+		<section id="register" class="form-card">
+			<h2>Register</h2>
+			<form id="register-form">
+				<div class="input-group">
+					<label for="reg-user">Username</label>
+					<input type="text" id="reg-user" name="username" placeholder="Enter your username" autocomplete="username" required>
+				</div>
+				<div class="input-group">
+					<label for="reg-email">Email Address</label>
+					<input type="email" id="reg-email" name="email" placeholder="Enter your email" autocomplete="email" required>
+				</div>
+				<div class="input-group">
+					<label for="reg-pass">Password</label>
+					<input type="password" id="reg-pass" name="password" placeholder="Create a password" autocomplete="new-password" required>
+				</div>
+				<div class="input-group">
+					<label for="reg-confirm">Confirm Password</label>
+					<input type="password" id="reg-confirm" name="confirmPassword" placeholder="Confirm your password" autocomplete="new-password" required>
+				</div>
+				<button type="submit" class="btn">Register</button>
+				<p id="register-message" class="form-message" role="status" aria-live="polite" hidden></p>
+			</form>
+		</section>
+	</main>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.22.1/jquery.validate.min.js"></script>
+	<script>
+		$(function () {
+			$.validator.addMethod("usernameFormat", function (value, element) {
+				return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9\s])\S+$/.test(value);
+			}, "Use a letter, a number, and a symbol, with no spaces.");
+
+			$("#register-form").validate({
+				errorClass: "form-validation-error",
+				rules: {
+					username: {
+						required: true,
+						minlength: 4,
+						maxlength: 15,
+						usernameFormat: true
+					},
+					email: {
+						required: true,
+						email: true
+					},
+					password: {
+						required: true,
+						minlength: 8,
+						maxlength: 15
+					},
+					confirmPassword: {
+						required: true,
+						equalTo: "#reg-pass"
+					}
+				},
+				messages: {
+					username: {
+						minlength: "Use at least 4 characters.",
+						maxlength: "Use no more than 15 characters."
+					},
+					password: {
+						minlength: "Use at least 8 characters.",
+						maxlength: "Use no more than 15 characters."
+					},
+					confirmPassword: {
+						equalTo: "Passwords do not match."
+					}
+				},
+				submitHandler: function (form) {
+					$("#register-message")
+						.removeClass("form-message-error")
+						.addClass("form-message-success")
+						.text("Account created. You can now log in.")
+						.prop("hidden", false);
+					form.reset();
+					return false;
+				}
+			});
+		});
+	</script>
+</body>
+</html>
